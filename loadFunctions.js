@@ -1,4 +1,4 @@
-import {o, success, error} from 'dek'
+import {o, success, danger} from 'dek'
 import glob from 'glob'
 import ControllerTemplate from './controller.template'
 import fs from 'fs'
@@ -51,12 +51,12 @@ export let loadAllControllers = async (app,folders,cb) =>{
 
 export let controllerGenerator = (arg) => {
 
-    if(!arg.hasOwnProperty('name')){
-        error('Vocé deve utilizar o parâmetro --name para definir o nome do seu controller')
+    if(!arg["_"].hasOwnProperty('2')){
+        danger('Vocé deve utilizar o parâmetro --name para definir o nome do seu controller')
         process.exit(1)
     }
     
-    let controllerName = arg.name
+    let controllerName = arg["_"][2]
     let routerName     = controllerName.toLowerCase()
     let className      = `${capitalize(controllerName)}Controller`
     let file           = ControllerTemplate(className, routerName)

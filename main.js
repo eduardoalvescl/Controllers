@@ -9,11 +9,18 @@ export let dependencies = ['express']
 export default async (arg) => {
     add('APIController', true)
     add('Router', Router)
-    addGenerator('controller', controllerGenerator)
     loadAllControllers(o.app, [process.cwd() + '/controllers/*'])
 }
 
-export let cli = () => {
+export let cli = {
+    name: 'controller',
+    action: async (args) => { 
+        console.log('Teste')
+    }
+}
 
+export let generator = {
+    name: 'controller',
+    action: controllerGenerator
 }
 
