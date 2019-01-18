@@ -15,7 +15,7 @@ export default async (arg) => {
 export let cli = {
     name: 'controller',
     action: async (args) => { 
-        console.log('Teste')
+        
     }
 }
 

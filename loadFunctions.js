@@ -2,6 +2,7 @@ import {o, success, danger} from 'dek'
 import glob from 'glob'
 import ControllerTemplate from './controller.template'
 import fs from 'fs'
+import { warning } from 'dek';
 
 export let loadAllControllers = async (app,folders,cb) =>{
     
@@ -62,10 +63,22 @@ export let controllerGenerator = (arg) => {
     let file           = ControllerTemplate(className, routerName)
 
     try{
-        fs.writeFileSync(`${process.cwd()}/controllers/${className}.js`, file)
-        success(`Arquivo ${process.cwd()}/controllers/${className}.js criado com sucesso!`)
+        let dir = `${process.cwd()}/controllers`
+
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+
+        if (!fs.existsSync(`${dir}/${className}.js`)){
+            fs.writeFileSync(`${dir}/${className}.js`, file)
+            success(`Arquivo ${dir}/${className}.js criado com sucesso!`)            
+        }else{
+            warning(`O controller ${className} já existe!`)
+        }
+
+
     }catch(e){
-        error(e.message)
+        danger(e.message)
     }
     
     if(o.hasOwnProperty('mongodb')){
